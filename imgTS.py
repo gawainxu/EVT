@@ -42,7 +42,7 @@ os.mkdir(distFolder)
 for i, fname in enumerate(dataFolderList):
     if i in selectList:
         continue
-    print fname
+    print(fname)
     txtFile = fname + '/' + fname + '.txt'
     ts = []
     f = open(txtFile, 'r')
