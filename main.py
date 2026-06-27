@@ -13,12 +13,13 @@ from Datasets import ImageTSDataset
 
 def getArgs():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataFolder', type=str, default='/home/zhi/projects/faultDiagnosis/phm/class0_28_50hz_High')
-    parser.add_argument('--modelPath', type=str, default='/home/zhi/projects/faultDiagnosis/phm/LeNet_enhanced2_50hz_High.pth')
+    parser.add_argument('--dataFolder', type=str, default='D:\projects\EVT\class0_14_30hz_High')
+    parser.add_argument('--modelPath', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
     parser.add_argument('--epochs', type=int, default=50)
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--lr', type=float, default=0.01)
+    parser.add_argument("--if_cuda", type=bool, default=False)
     
     args = parser.parse_args()
     
@@ -36,24 +37,25 @@ if __name__ == '__main__':
     imageDTLoader = DataLoader(dataset, batch_size = opt.batch_size, shuffle=True, num_workers = 4, drop_last=True)
     
     numClasses = dataset.numClasses
-    
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    optimizer = optim.Adadelta(model.parameters(), lr = lr)
+
+    if torch.cuda.is_available() and opt.if_cuda:
+        device = torch.device("cuda")
+    else:
+        device = torch.device('cpu')
     model = LeNet_enhanced2(opt.in_dim, numClasses)
     if opt.modelPath is not None:
         model.load_state_dict(torch.load(opt.modelPath))
     model.eval()
+    optimizer = optim.Adadelta(model.parameters(), lr = opt.lr)
     
     scoreS = []
     labelS = []
     
+    lossMin = 20
     for e in range(opt.epochs):
-        for i in range(len(dataset)):
-            img, label = dataset[i]
-            img = torch.from_numpy(img)
-            img = img.unsqueeze(0)
-            output = model(img.float())
-            score, pred = torch.max(output.data, 1)
-            
-            scoreS.append(score.item()) 
-            labelS.append(label)
+        lossEpoch = train(model, device, imageDTLoader, optimizer)
+      #  Loss.append(lossEpoch)
+        print('Epoch: ', e, 'Loss: ', lossEpoch)
+        if lossEpoch < lossMin:
+            torch.save(model.state_dict(), '/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_30hz_high.pt')
+            lossMin = lossEpoch
