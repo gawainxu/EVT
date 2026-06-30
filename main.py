@@ -6,6 +6,7 @@ import torch
 from torchvision import transforms
 import torch.optim as optim
 from torch.utils.data import DataLoader
+import torch.nn.functional as F
 
 from CNNs import LeNet_enhanced2, train
 from Datasets import ImageTSDataset
@@ -13,8 +14,8 @@ from Datasets import ImageTSDataset
 
 def getArgs():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataFolder', type=str, default='/home/zhi/projects/faultDiagnosis/phm/class0_28_50hz_High')
-    parser.add_argument('--modelPath', type=str, default='/home/zhi/projects/faultDiagnosis/phm/LeNet_enhanced2_50hz_High.pth')
+    parser.add_argument('--dataFolder', type=str, default='/home/zhi/projects/datasets/fault diagnosis/phm/class0_14_50hz_High')
+    parser.add_argument('--modelPath', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
     parser.add_argument('--epochs', type=int, default=50)
     parser.add_argument('--batch_size', type=int, default=32)
@@ -38,22 +39,16 @@ if __name__ == '__main__':
     numClasses = dataset.numClasses
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    optimizer = optim.Adadelta(model.parameters(), lr = lr)
     model = LeNet_enhanced2(opt.in_dim, numClasses)
+    optimizer = optim.Adadelta(model.parameters(), lr=opt.lr)
     if opt.modelPath is not None:
         model.load_state_dict(torch.load(opt.modelPath))
     model.eval()
     
     scoreS = []
     labelS = []
+    lossEpoch = 0
     
     for e in range(opt.epochs):
-        for i in range(len(dataset)):
-            img, label = dataset[i]
-            img = torch.from_numpy(img)
-            img = img.unsqueeze(0)
-            output = model(img.float())
-            score, pred = torch.max(output.data, 1)
-            
-            scoreS.append(score.item()) 
-            labelS.append(label)
+        loss_epoch = train(model, imageDTLoader, optimizer, device)
+        print("Epoch", e, loss_epoch)
