@@ -79,7 +79,7 @@ class LeNet_enhanced2(nn.Module):
 def train(model, device, dataLoader, optimizer):
     # Hint: (for cross_entropy) https://jbencook.com/cross-entropy-loss-in-pytorch/
     model.train()
-    model = model.cuda()
+    model = model.to(device)
     lossEpoch = 0
     
     for batchIdx, (img, label) in enumerate(dataLoader):

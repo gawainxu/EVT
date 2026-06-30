@@ -38,7 +38,7 @@ class ImageTSDataset(Dataset):
                           "helical 6_50hz_Low_1":10, "helical 6_50hz_Low_2":11,
                           "spur 1_50hz_Low_1":12, "spur 1_50hz_Low_2":13,}
         
-        self.numClasses = len(self.labelDict)
+        self.numClasses = int(len(self.labelDict))
         
         
     def __getitem__(self, idx):
@@ -76,5 +76,6 @@ class ToTensor(object):
 
 if __name__ == '__main__':
     
-    ImageDataFoloder = '/home/zhi/projects/faultDiagnosis/phm/class0_14_Low_3200_end'
+    ImageDataFoloder = 'D:\projects\EVT\class0_14_30hz_High'
     DT = ImageTSDataset(ImageDataFoloder)
+    print(len(DT))
