@@ -13,29 +13,29 @@ import numpy as np
 N = 64
 intervel = 64
 
-labelDict = ["helical 1_50hz_Low_1", "helical 1_50hz_Low_2",
-             "helical 2_50hz_Low_1", "helical 2_50hz_Low_2",
-             "helical 3_50hz_Low_1", "helical 3_50hz_Low_2",
-             "helical 4_50hz_Low_1", "helical 4_50hz_Low_2",
-             "helical 5_50hz_Low_1", "helical 5_50hz_Low_2",
-             "helical 6_50hz_Low_1", "helical 6_50hz_Low_2",
+labelDict = ["helical 1_45hz_High_1", "helical 1_45hz_High_2",
+             "helical 2_45hz_High_1", "helical 2_45hz_High_2",
+             "helical 3_45hz_High_1", "helical 3_45hz_High_2",
+             "helical 4_45hz_High_1", "helical 4_45hz_High_2",
+             "helical 5_45hz_High_1", "helical 5_45hz_High_2",
+             "helical 6_45hz_High_1", "helical 6_45hz_High_2",
              
-             "spur 1_50hz_Low_1", "spur 1_50hz_Low_2",
-             "spur 2_50hz_Low_1", "spur 2_50hz_Low_2",
-             "spur 3_50hz_Low_1", "spur 3_50hz_Low_2",
-             "spur 4_50hz_Low_1", "spur 4_50hz_Low_2",
-             "spur 5_50hz_Low_1", "spur 5_50hz_Low_2",
-             "spur 6_50hz_Low_1", "spur 6_50hz_Low_2",
-             "spur 7_50hz_Low_1", "spur 7_50hz_Low_2",
-             "spur 8_50hz_Low_1", "spur 8_50hz_Low_2"]
+             "spur 1_45hz_High_1", "spur 1_45hz_High_2",
+             "spur 2_45hz_High_1", "spur 2_45hz_High_2",
+             "spur 3_45hz_High_1", "spur 3_45hz_High_2",
+             "spur 4_45hz_High_1", "spur 4_45hz_High_2",
+             "spur 5_45hz_High_1", "spur 5_45hz_High_2",
+             "spur 6_45hz_High_1", "spur 6_45hz_High_2",
+             "spur 7_45hz_High_1", "spur 7_45hz_High_2",
+             "spur 8_45hz_High_1", "spur 8_45hz_High_2"]
 
 selectList = range(0, 14)
 
 
-dataFolder = './PHM_Society_2009_Competition_Expanded_txt/50Hz_Low'
+dataFolder = './PHM_Society_2009_Competition_Expanded_txt/45hz_High'
 dataFolderList = sorted(os.listdir(dataFolder))
 os.chdir(dataFolder)
-distFolder = '/home/users/j/jiawen/EVT/phm/class0_28_50hz_Low'
+distFolder = '/home/users/j/jiawen/EVT/phm/class0_28_45hz_High'
 if not os.path.exists(distFolder):
     os.mkdir(distFolder)
 
