@@ -6,36 +6,48 @@ Created on Tue Oct  6 11:50:44 2020
 @author: zhi
 """
 
+import argparse
 import os                
 import numpy as np
 
-           
+
+def arg_parse():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--condition', type=str, required=True, default="50Hz_High", help="condition condition")
+
+    return parser.parse_args()
+
+
+opt = arg_parse()
+
 N = 64
 intervel = 64
 
-labelDict = ["helical 1_45Hz_High_1", "helical 1_45Hz_High_2",
-             "helical 2_45Hz_High_1", "helical 2_45Hz_High_2",
-             "helical 3_45Hz_High_1", "helical 3_45Hz_High_2",
-             "helical 4_45Hz_High_1", "helical 4_45Hz_High_2",
-             "helical 5_45Hz_High_1", "helical 5_45Hz_High_2",
-             "helical 6_45Hz_High_1", "helical 6_45Hz_High_2",
+labelDict = ["helical 1_" + opt.condition + "_1", "helical 1_" + opt.condition + "_2",
+             "helical 2_" + opt.condition + "_1", "helical 2_" + opt.condition + "_2",
+             "helical 3_" + opt.condition + "_1", "helical 3_" + opt.condition + "_2",
+             "helical 4_" + opt.condition + "_1", "helical 4_" + opt.condition + "_2",
+             "helical 5_" + opt.condition + "_1", "helical 5_" + opt.condition + "_2",
+             "helical 6_" + opt.condition + "_1", "helical 6_" + opt.condition + "_2",
              
-             "spur 1_45Hz_High_1", "spur 1_45Hz_High_2",
-             "spur 2_45Hz_High_1", "spur 2_45Hz_High_2",
-             "spur 3_45Hz_High_1", "spur 3_45Hz_High_2",
-             "spur 4_45Hz_High_1", "spur 4_45Hz_High_2",
-             "spur 5_45Hz_High_1", "spur 5_45Hz_High_2",
-             "spur 6_45Hz_High_1", "spur 6_45Hz_High_2",
-             "spur 7_45Hz_High_1", "spur 7_45Hz_High_2",
-             "spur 8_45Hz_High_1", "spur 8_45Hz_High_2"]
+             "spur 1_" + opt.condition + "_1", "spur 1_" + opt.condition + "_2",
+             "spur 2_" + opt.condition + "_1", "spur 2_" + opt.condition + "_2",
+             "spur 3_" + opt.condition + "_1", "spur 3_" + opt.condition + "_2",
+             "spur 4_" + opt.condition + "_1", "spur 4_" + opt.condition + "_2",
+             "spur 5_" + opt.condition + "_1", "spur 5_" + opt.condition + "_2",
+             "spur 6_" + opt.condition + "_1", "spur 6_" + opt.condition + "_2",
+             "spur 7_" + opt.condition + "_1", "spur 7_" + opt.condition + "_2",
+             "spur 8_" + opt.condition + "_1", "spur 8_" + opt.condition + "_2"]
 
 selectList = range(0, 14)
 
 
-dataFolder = './PHM_Society_2009_Competition_Expanded_txt/45Hz_High'
+dataFolder = './PHM_Society_2009_Competition_Expanded_txt/' + opt.condition
 dataFolderList = sorted(os.listdir(dataFolder))
 os.chdir(dataFolder)
-distFolder = '/home/users/j/jiawen/EVT/phm/class0_28_45Hz_High'
+distFolder = '/home/users/j/jiawen/EVT/phm/class0_28_' + opt.condition
 if not os.path.exists(distFolder):
     os.mkdir(distFolder)
 
