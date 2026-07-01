@@ -41,8 +41,8 @@ if not os.path.exists(distFolder):
 
 
 for i, fname in enumerate(dataFolderList):
-    if i in selectList:
-        continue
+    #if i in selectList:
+    #    continue
     print(fname)
     txtFile = fname + '/' + fname + '.txt'
     ts = []
