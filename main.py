@@ -17,6 +17,7 @@ def getArgs():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--dataFolder', type=str, default=None)
+    parser.add_argument('--oldmodelPath', type=str, default=None)
     parser.add_argument('--modelPath', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
     parser.add_argument('--epochs', type=int, default=50)
@@ -48,7 +49,7 @@ if __name__ == '__main__':
 
     model = LeNet_enhanced2(opt.in_dim, numClasses)
     optimizer = optim.Adadelta(model.parameters(), lr=opt.lr)
-    if opt.modelPath is not None:
+    if opt.oldmodelPath is not None:
         model.load_state_dict(torch.load(opt.modelPath))
     model.eval()
     
