@@ -97,10 +97,10 @@ if __name__ == '__main__':
     predictSorted = [[] for _ in range(numClasses + 1)]
     
     for (outs, label) in zip(outputs, labels):
-        print label
+        print(label)
         predict = F.log_softmax(torch.tensor(outs))
         predict = torch.argmax(predict, dim=1)
-        print predict.item()
+        print(predict.item())
         if label < 100:   #predict == label:
             outputSorted[label].append(outs)
             predictSorted[label].append(predict.item())
