@@ -30,13 +30,13 @@ class ImageTSDataset(Dataset):
         
         self.transform = transform
         
-        self.labelDict = {"helical 1_50hz_Low_1":0, "helical 1_50hz_Low_2":1, 
-                          "helical 2_50hz_Low_1":2, "helical 2_50hz_Low_2":3, 
-                          "helical 3_50hz_Low_1":4, "helical 3_50hz_Low_2":5, 
-                          "helical 4_50hz_Low_1":6, "helical 4_50hz_Low_2":7,
-                          "helical 5_50hz_Low_1":8, "helical 5_50hz_Low_2":9,
-                          "helical 6_50hz_Low_1":10, "helical 6_50hz_Low_2":11,
-                          "spur 1_50hz_Low_1":12, "spur 1_50hz_Low_2":13,}
+        self.labelDict = {"helical 1_50hz_Low_1": 0, "helical 1_50hz_Low_2": 0,
+                          "helical 2_50hz_Low_1": 1, "helical 2_50hz_Low_2": 1,
+                          "helical 3_50hz_Low_1": 2, "helical 3_50hz_Low_2": 2,
+                          "helical 4_50hz_Low_1": 3, "helical 4_50hz_Low_2": 3,
+                          "helical 5_50hz_Low_1": 4, "helical 5_50hz_Low_2": 4,
+                          "helical 6_50hz_Low_1": 5, "helical 6_50hz_Low_2": 5,
+                          "spur 1_50hz_Low_1": 6, "spur 1_50hz_Low_2": 6}
         
         self.numClasses = int(len(self.labelDict))
         
