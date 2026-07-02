@@ -38,7 +38,7 @@ class ImageTSDataset(Dataset):
                           "helical 6_50hz_Low_1": 5, "helical 6_50hz_Low_2": 5,
                           "spur 1_50hz_Low_1": 6, "spur 1_50hz_Low_2": 6}
         
-        self.numClasses = int(len(self.labelDict))
+        self.numClasses = int(len(self.labelDict) / 2)
         
         
     def __getitem__(self, idx):

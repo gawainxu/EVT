@@ -1,0 +1,1 @@
+python main.py --dataFolder ./phm/class0_28_50hz_Low --modelPath ./save/classifer_50hz_Low.pth
