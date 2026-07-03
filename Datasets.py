@@ -21,9 +21,10 @@ import matplotlib.pyplot as plt
 
 class ImageTSDataset(Dataset):
     
-    def __init__(self, ImageDataFoloder, transform=None):
+    def __init__(self, ImageDataFoloder, outliers=False, transform=None):
         self.ImageDataFolder = ImageDataFoloder
         self.ImageDataList = os.listdir(ImageDataFoloder)
+        self.outliers = outliers
         
         os.chdir(ImageDataFoloder)
         self.ImageDataList = sorted(os.listdir(ImageDataFoloder))
@@ -39,7 +40,6 @@ class ImageTSDataset(Dataset):
                           "spur 1_50hz_Low_1": 6, "spur 1_50hz_Low_2": 6}
         
         self.numClasses = int(len(self.labelDict) / 2)
-        
         
     def __getitem__(self, idx):
         
