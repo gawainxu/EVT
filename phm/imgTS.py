@@ -47,7 +47,7 @@ selectList = range(0, 14)
 dataFolder = './PHM_Society_2009_Competition_Expanded_txt/' + opt.condition
 dataFolderList = sorted(os.listdir(dataFolder))
 os.chdir(dataFolder)
-distFolder = '/home/users/j/jiawen/EVT/phm/class0_28_' + opt.condition
+distFolder = '/home/users/j/jiawen/EVT/phm/class0_14_' + opt.condition
 if not os.path.exists(distFolder):
     os.mkdir(distFolder)
 
