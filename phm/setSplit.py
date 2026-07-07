@@ -31,7 +31,7 @@ outLabels = ["spur 2_" + opt.condition + "_1", "spur 2_" + opt.condition + "_2",
              "spur 8_" + opt.condition + "_1", "spur 8_" + opt.condition + "_2"]
 
 
-source_folder = "/home/users/j/jiawen/EVT/phm/class0_28_" + opt.condition
+source_folder = "/home/users/j/jiawen/EVT/phm/class0_14_" + opt.condition
 dist_folder = "/home/users/j/jiawen/EVT/phm/class_outliers_" + opt.condition
 if not os.path.exists(dist_folder):
     os.mkdir(dist_folder)
