@@ -40,9 +40,9 @@ if not os.path.exists(dist_folder):
 file_list = sorted(os.listdir(source_folder))
 
 for fn in file_list:
-    print(fn)
     label_name = fn.split("__")[0]
     if label_name in labelDict:
         continue
 
+    print(fn)
     shutil.move(os.path.join(source_folder, fn), os.path.join(dist_folder, fn))
