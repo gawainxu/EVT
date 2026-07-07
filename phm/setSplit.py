@@ -7,28 +7,29 @@ def arg_parse():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--condition', type=str, required=True, default="50Hz_High", help="condition condition")
+    parser.add_argument('--condition_name', type=str, required=True, help="set")
 
     return parser.parse_args()
 
 
 opt = arg_parse()
 
-labelDict = ["helical 1_" + opt.condition + "_1", "helical 1_" + opt.condition + "_2",
-             "helical 2_" + opt.condition + "_1", "helical 2_" + opt.condition + "_2",
-             "helical 3_" + opt.condition + "_1", "helical 3_" + opt.condition + "_2",
-             "helical 4_" + opt.condition + "_1", "helical 4_" + opt.condition + "_2",
-             "helical 5_" + opt.condition + "_1", "helical 5_" + opt.condition + "_2",
-             "helical 6_" + opt.condition + "_1", "helical 6_" + opt.condition + "_2",
-             "spur 1_" + opt.condition + "_1", "spur 1_" + opt.condition + "_2",]
+labelDict = ["helical 1_" + opt.condition_name + "_1", "helical 1_" + opt.condition_name + "_2",
+             "helical 2_" + opt.condition_name + "_1", "helical 2_" + opt.condition_name + "_2",
+             "helical 3_" + opt.condition_name + "_1", "helical 3_" + opt.condition_name + "_2",
+             "helical 4_" + opt.condition_name + "_1", "helical 4_" + opt.condition_name + "_2",
+             "helical 5_" + opt.condition_name + "_1", "helical 5_" + opt.condition_name + "_2",
+             "helical 6_" + opt.condition_name + "_1", "helical 6_" + opt.condition_name + "_2",
+             "spur 1_" + opt.condition_name + "_1", "spur 1_" + opt.condition_name + "_2",]
 
 
-outLabels = ["spur 2_" + opt.condition + "_1", "spur 2_" + opt.condition + "_2",
-             "spur 3_" + opt.condition + "_1", "spur 3_" + opt.condition + "_2",
-             "spur 4_" + opt.condition + "_1", "spur 4_" + opt.condition + "_2",
-             "spur 5_" + opt.condition + "_1", "spur 5_" + opt.condition + "_2",
-             "spur 6_" + opt.condition + "_1", "spur 6_" + opt.condition + "_2",
-             "spur 7_" + opt.condition + "_1", "spur 7_" + opt.condition + "_2",
-             "spur 8_" + opt.condition + "_1", "spur 8_" + opt.condition + "_2"]
+outLabels = ["spur 2_" + opt.condition_name + "_1", "spur 2_" + opt.condition_name + "_2",
+             "spur 3_" + opt.condition_name + "_1", "spur 3_" + opt.condition_name + "_2",
+             "spur 4_" + opt.condition_name + "_1", "spur 4_" + opt.condition_name + "_2",
+             "spur 5_" + opt.condition_name + "_1", "spur 5_" + opt.condition_name + "_2",
+             "spur 6_" + opt.condition_name + "_1", "spur 6_" + opt.condition_name + "_2",
+             "spur 7_" + opt.condition_name + "_1", "spur 7_" + opt.condition_name + "_2",
+             "spur 8_" + opt.condition_name + "_1", "spur 8_" + opt.condition_name + "_2"]
 
 
 source_folder = "/home/users/j/jiawen/EVT/phm/class0_14_" + opt.condition

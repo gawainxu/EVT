@@ -9,13 +9,13 @@ python imgTS.py --condition 35Hz_Low
 python imgTS.py --condition 30Hz_High
 python imgTS.py --condition 30Hz_Low
 
-#python setSplit.py --condition 50Hz_High
-#python setSplit.py --condition 50Hz_Low
-#python setSplit.py --condition 45Hz_High
-#python setSplit.py --condition 45Hz_Low
-#python setSplit.py --condition 40Hz_High
-#python setSplit.py --condition 40Hz_Low
-#python setSplit.py --condition 35Hz_High
-#python setSplit.py --condition 35Hz_Low
-#python setSplit.py --condition 30Hz_High
-#python setSplit.py --condition 30Hz_Low
+#python setSplit.py --condition 50hz_High
+#python setSplit.py --condition 50hz_Low
+#python setSplit.py --condition 45hz_High
+#python setSplit.py --condition 45hz_Low
+#python setSplit.py --condition 40hz_High
+#python setSplit.py --condition 40hz_Low
+#python setSplit.py --condition 35hz_High
+#python setSplit.py --condition 35hz_Low
+#python setSplit.py --condition 30hz_High
+#python setSplit.py --condition 30hz_Low
