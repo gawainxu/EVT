@@ -121,8 +121,7 @@ if __name__ == '__main__':
     model = LeNet_enhanced2(N, numClasses)
     optimizer = optim.Adadelta(model.parameters(), lr = lr)
     model.load_state_dict(torch.load('/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_30hz_high.pt'))
-    
-    
+
     # Start the training
     
     lossMin = 20

@@ -1,1 +1,1 @@
-python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_28_50Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_50hz_Low.pth"
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth"

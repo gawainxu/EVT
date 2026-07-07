@@ -24,6 +24,7 @@ def getArgs():
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--lr', type=float, default=0.01)
     parser.add_argument("--if_cuda", type=bool, default=False)
+    parser.add_argument('--condition', type=str, default="50Hz_High")
     
     args = parser.parse_args()
     
@@ -36,7 +37,7 @@ if __name__ == '__main__':
     opt = getArgs()
     
     os.chdir(opt.dataFolder)
-    dataset = ImageTSDataset(ImageDataFoloder=opt.dataFolder)
+    dataset = ImageTSDataset(ImageDataFoloder=opt.dataFolder, condition=opt.condition)
     transform = transforms.Compose([transforms.ToTensor()])      
     imageDTLoader = DataLoader(dataset, batch_size=opt.batch_size, shuffle=True, num_workers=4, drop_last=True)
     
