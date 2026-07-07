@@ -1,1 +1,10 @@
-python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth"
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth" --condition "50hz_High" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_50Hz_Low.pth" --condition "50hz_Low" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_45Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_45Hz_High.pth" --condition "45hz_High" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_45Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_45Hz_Low.pth" --condition "45hz_Low" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_40Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_40Hz_High.pth" --condition "40hz_High" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_40Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_40Hz_Low.pth" --condition "40hz_Low" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_35Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_35Hz_High.pth" --condition "35hz_High" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_35Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_35Hz_Low.pth" --condition "35hz_Low" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_30Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_30Hz_High.pth" --condition "30hz_High" --batch_size 256
+python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_30Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_30Hz_Low.pth" --condition "30hz_Low" --batch_size 256
