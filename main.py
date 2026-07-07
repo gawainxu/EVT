@@ -21,8 +21,8 @@ def getArgs():
     parser.add_argument('--modelPath', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
     parser.add_argument('--epochs', type=int, default=50)
-    parser.add_argument('--batch_size', type=int, default=32)
-    parser.add_argument('--lr', type=float, default=0.01)
+    parser.add_argument('--batch_size', type=int, default=256)
+    parser.add_argument('--lr', type=float, default=0.1)
     parser.add_argument("--if_cuda", type=bool, default=True)
     parser.add_argument('--condition', type=str, default="50Hz_High")
     
