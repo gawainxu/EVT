@@ -1,3 +1,13 @@
+python imgTS.py --condition 50Hz_Low
+python imgTS.py --condition 45Hz_High
+python imgTS.py --condition 45Hz_Low
+python imgTS.py --condition 40Hz_High
+python imgTS.py --condition 40Hz_Low
+python imgTS.py --condition 35Hz_High
+python imgTS.py --condition 35Hz_Low
+python imgTS.py --condition 30Hz_High
+python imgTS.py --condition 30Hz_Low
+
 python setSplit.py --condition 50Hz_Low
 python setSplit.py --condition 45Hz_High
 python setSplit.py --condition 45Hz_Low

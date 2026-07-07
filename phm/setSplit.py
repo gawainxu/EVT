@@ -44,4 +44,4 @@ for fn in file_list:
     if label_name in labelDict:
         continue
 
-    shutil.move(os.path.join(source_folder, fn), os.path.join(dist_folder, label_name))
+    shutil.move(os.path.join(source_folder, fn), os.path.join(dist_folder, fn))
