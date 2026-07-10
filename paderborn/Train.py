@@ -16,12 +16,11 @@ def getParse():
     parser.add_argument('--old_model_path', type=str, default=None)
     parser.add_argument('--model_path', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
-    parser.add_argument('--epochs', type=int, default=50)
+    parser.add_argument('--epochs', type=int, default=200)
     parser.add_argument('--batch_size', type=int, default=256)
     parser.add_argument("--num_classes", type=int, default=13)
     parser.add_argument('--lr', type=float, default=0.1)
     parser.add_argument("--if_cuda", type=bool, default=True)
-    parser.add_argument('--condition', type=str, default="50Hz_High")
 
     args = parser.parse_args()
 
