@@ -109,7 +109,7 @@ if __name__ == '__main__':
     dataStd = 0.291
     
     # Prepare the dataset
-    imageDataFoloder = '/home/zhi/projects/faultDiagnosis/paderborn/class13_0_12_4'
+    imageDataFoloder = '/beegfs/home/users/j/jiawen/datasets/paderborn/class13_0_12_4'
     imageDT = ImageTSDataset(imageDataFoloder)
     
     transform = transforms.Compose([transforms.ToTensor()])      #, transforms.Normalize(dataMean, dataStd)
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = LeNet_enhanced2(N, numClasses)
     optimizer = optim.Adadelta(model.parameters(), lr = lr)
-    model.load_state_dict(torch.load('/home/zhi/projects/faultDiagnosis/paderborn/LossFiles/LeNet_enhanced2_class13_4.pt'))
+    #model.load_state_dict(torch.load('/home/zhi/projects/faultDiagnosis/paderborn/LossFiles/LeNet_enhanced2_class13_4.pt'))
     
     
     # Start the training
@@ -130,7 +130,7 @@ if __name__ == '__main__':
       #  Loss.append(lossEpoch)
         print('Epoch: ', e, 'Loss: ', lossEpoch)
         if lossEpoch < lossMin:
-            torch.save(model.state_dict(), '/home/zhi/projects/faultDiagnosis/paderborn/LossFiles/LeNet_enhanced2_class13_4.pt')
+            torch.save(model.state_dict(), '/beegfs/home/users/j/jiawen/EVT/save/paderborn_4.pth')
             lossMin = lossEpoch
         
         
