@@ -109,7 +109,7 @@ if __name__ == '__main__':
     dataStd = 0.291
     
     # Prepare the dataset
-    imageDataFoloder = '/beegfs/home/users/j/jiawen/datasets/paderborn/class13_0_12_4'
+    imageDataFoloder = '/home/users/j/jiawen/datasets/paderborn/class13_0_12_4'
     imageDT = ImageTSDataset(imageDataFoloder)
     
     transform = transforms.Compose([transforms.ToTensor()])      #, transforms.Normalize(dataMean, dataStd)
@@ -130,7 +130,7 @@ if __name__ == '__main__':
       #  Loss.append(lossEpoch)
         print('Epoch: ', e, 'Loss: ', lossEpoch)
         if lossEpoch < lossMin:
-            torch.save(model.state_dict(), '/beegfs/home/users/j/jiawen/EVT/save/paderborn_4.pth')
+            torch.save(model.state_dict(), '/home/users/j/jiawen/EVT/save/paderborn_4.pth')
             lossMin = lossEpoch
         
         
