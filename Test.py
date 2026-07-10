@@ -15,9 +15,26 @@ from torchvision import transforms, utils
 import matplotlib.pyplot as plt
 import numpy as np
 import pickle
+import argparse
+import os
 
 from CNNs import LeNet_enhanced2
 from Datasets import ImageTSDataset
+
+
+def getParse():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--dataFolder', type=str, default=None)
+    parser.add_argument('--oldmodelPath', type=str, default=None)
+    parser.add_argument('--modelPath', type=str, default=None)
+    parser.add_argument('--in_dim', type=int, default=64)
+    parser.add_argument("--if_cuda", type=bool, default=True)
+    parser.add_argument('--condition', type=str, default="50Hz_High")
+
+    opt = parser.parse_args()
+    return opt
 
 
 def test(model, device, dataLoader):
@@ -76,20 +93,24 @@ def PrecisionRecall(outputs, labels):
 
 
 if __name__ == '__main__':
-    
-    N = 64
-    numClasses = 14
-    
-    testDataFolder = '/home/zhi/projects/faultDiagnosis/phm/class0_28_50hz_Low_3200_end/'
-    testDT = ImageTSDataset(testDataFolder)
-    
-    testDTLoader = DataLoader(testDT, batch_size=1 , shuffle=True, drop_last=True)
-    device = 'cpu'
-    
-    modelPath = '/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_50hz_Low.pt'
-    model = LeNet_enhanced2(N, numClasses)
-    model.load_state_dict(torch.load(modelPath))
-    
+
+
+    opt = getParse()
+
+    os.chdir(opt.dataFolder)
+    dataset = ImageTSDataset(ImageDataFoloder=opt.dataFolder, condition=opt.condition)
+    transform = transforms.Compose([transforms.ToTensor()])
+    testDTLoader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
+
+    numClasses = dataset.numClasses
+
+    if torch.cuda.is_available() and opt.if_cuda:
+        device = torch.device("cuda")
+    else:
+        device = torch.device('cpu')
+
+    model = LeNet_enhanced2(opt.in_dim, numClasses)
+    model.load_state_dict(torch.load(opt.modelPath))
     outputs, labels = test(model, device, testDTLoader)
     
     # read the outputs

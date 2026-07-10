@@ -10,7 +10,6 @@ import torch.nn.functional as F
 
 from CNNs import LeNet_enhanced2, train
 from Datasets import ImageTSDataset
-from Test import test
 
 
 def getArgs():
