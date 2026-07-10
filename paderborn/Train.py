@@ -74,5 +74,5 @@ if __name__ == '__main__':
         #  Loss.append(lossEpoch)
         print('Epoch: ', e, 'Loss: ', lossEpoch)
         if lossEpoch < lossMin:
-            torch.save(model.state_dict(), '/home/users/j/jiawen/EVT/save/paderborn_3.pth')
+            torch.save(model.state_dict(), opt.model_path)
             lossMin = lossEpoch
