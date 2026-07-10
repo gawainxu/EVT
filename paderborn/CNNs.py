@@ -74,28 +74,6 @@ class LeNet_enhanced2(nn.Module):
         
         return y
 
-    
-def train(model, device, dataLoader, optimizer):
-    # Hint: (for cross_entropy) https://jbencook.com/cross-entropy-loss-in-pytorch/
-    model.train()
-    model = model.cuda()
-    lossEpoch = 0
-    
-    for batchIdx, (img, label) in enumerate(dataLoader):
-        #img, label = torch.from_numpy(img), torch.from_numpy(label)
-        img = img.to(device, dtype=torch.float)
-        label = label.to(device, dtype=torch.long)
-        optimizer.zero_grad()
-        output = model(img)
-        #output = F.log_softmax(output)
-        loss = F.cross_entropy(output, label)
-        loss.backward()
-        optimizer.step()
-        
-        lossEpoch += loss.cpu()
-    return lossEpoch / batchIdx
-    
-
 
 if __name__ == '__main__':
     
