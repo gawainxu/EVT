@@ -46,7 +46,7 @@ class LeNet_enhanced2(nn.Module):
         self.conv4 = nn.Conv2d(in_channels=50, out_channels=25, kernel_size=5, padding=(2,2))
         self.conv5 = nn.Conv2d(in_channels=25, out_channels=25, kernel_size=5, padding=(2,2))
         
-        self.linear1 = nn.Linear(inDim*inDim/4/4/4*25, 1000)     
+        self.linear1 = nn.Linear(int(inDim*inDim/4/4/4*25), 1000)
         self.linear2 = nn.Linear(1000, 500)
         self.linear3 = nn.Linear(500, 200)
         self.outlayer = nn.Linear(200, outDim)
