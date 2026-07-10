@@ -46,7 +46,7 @@ def train(model, device, dataLoader, optimizer):
         optimizer.step()
 
         lossEpoch += loss.cpu()
-        
+
     return lossEpoch / batchIdx
 
 
