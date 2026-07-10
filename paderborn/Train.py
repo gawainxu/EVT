@@ -67,3 +67,12 @@ if __name__ == '__main__':
 
     model = LeNet_enhanced2(opt.in_dim, opt.num_classes)
     optimizer = optim.Adadelta(model.parameters(), lr=opt.lr)
+
+    lossMin = 20
+    for e in range(opt.epochs):
+        lossEpoch = train(model, device, imageDTLoader, optimizer)
+        #  Loss.append(lossEpoch)
+        print('Epoch: ', e, 'Loss: ', lossEpoch)
+        if lossEpoch < lossMin:
+            torch.save(model.state_dict(), '/home/users/j/jiawen/EVT/save/paderborn_3.pth')
+            lossMin = lossEpoch
