@@ -23,7 +23,7 @@ class ImageTSDataset(Dataset):
     
     def __init__(self, ImageDataFoloder, transform=None):
         self.ImageDataFolder = ImageDataFoloder
-        self.ImageDataList  = os.listdir(ImageDataFoloder)
+        self.ImageDataList = os.listdir(ImageDataFoloder)
         
         os.chdir(ImageDataFoloder)
         self.ImageDataList = sorted(os.listdir(ImageDataFoloder))
@@ -49,7 +49,7 @@ class ImageTSDataset(Dataset):
         
         dataName = self.ImageDataList[idx]
         #img = plt.imread(dataName)
-        img = np.load(dataName, allow_pickle=True)
+        img = np.load(dataName, allow_pickle=True, encoding='latin1')
         img = np.expand_dims(img, axis=0)
     
         dataIden = dataName.split('.')[0]
