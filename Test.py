@@ -73,11 +73,11 @@ def compareLabels(estLabels, trueLabels):
     return unEquals
 
 
-def PrecisionRecall(outputs, labels):
+def PrecisionRecall(outputs, labels, num_classes):
             
     recalls = []
     precisions = []
-    classes = range(14)
+    classes = range(num_classes+1)
     classes.append(100)
     
     for c in classes:

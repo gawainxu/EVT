@@ -15,5 +15,5 @@
 #python main.py --data_folder "/home/users/j/jiawen/datasets/paderborn/class13_0_12_4" --model_path "/home/users/j/jiawen/EVT/save/class13_0_12_4.pth" --epochs 200
 
 
-python Test.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High_test" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth" --condition "50hz_High"
-python Test.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High_test" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth" --condition "50hz_High"
+python Test.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High_test" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth" --save_path "/home/users/j/jiawen/EVT/FeatureMaps/class0_14_50Hz_High_pred" --condition "50hz_High"
+python Test.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_Low_test" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_Low.pth" --save_path "/home/users/j/jiawen/EVT/FeatureMaps/class0_14_50Hz_Low_pred" --condition "50hz_Low"
