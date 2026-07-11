@@ -48,14 +48,17 @@ def test(model, device, dataLoader):
     model = model.to(device)
     outputs = []
     labels = []
+    preds = []
     
     for idx, (img, label) in enumerate(dataLoader):
         #print idx
         img = img.to(device, dtype=torch.float)
         label = label.to(device, dtype=torch.long)
         output = model(img)
+        pred = torch.argmax(output, dim=1)
         
-        outputs.append(output.cpu().detach().numpy())
+        outputs.append(output.cpu().detach().item())
+        preds.append(pred.cpu().detach().item())
         labels.append(label.cpu().item())
         #lossTest.append(loss.cpu().detach().numpy())
         
