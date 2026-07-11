@@ -55,8 +55,8 @@ def test(model, device, dataLoader):
         label = label.to(device, dtype=torch.long)
         output = model(img)
         
-        outputs.append(output.detach().numpy())
-        labels.append(label.item())
+        outputs.append(output.cpu().detach().numpy())
+        labels.append(label.cpu().item())
         #lossTest.append(loss.cpu().detach().numpy())
         
     return outputs, labels
