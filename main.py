@@ -25,7 +25,7 @@ def getArgs():
     
     opt = parser.parse_args()
 
-    if "phm" in opt.dataFolder:
+    if "phm" in opt.data_folder:
         opt.dataset = "phm"
     else:
         opt.dataset = "paderborn"
