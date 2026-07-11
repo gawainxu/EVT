@@ -24,21 +24,25 @@ from torchvision import transforms, utils
 from torch.utils.data import DataLoader, Dataset
 
 from CNNs import LeNet_enhanced2
-from Datasets import ImageTSDataset
-
+from Datasets import ImageTSDataset_PHM, ImageTSDataset_Paderborn
 
 
 def getArgs():
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--model_path', type=str, default='/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_30hz_High.pt')
+    parser.add_argument('--model_path', type=str, default=None)
     parser.add_argument("--num_classes", type=int, default=10)
     parser.add_argument("--data_dim", type=int, default=64)
     parser.add_argument("--test_datapath", type=str, default="")
     parser.add_argument("--save_path", type=str, default="")
     parser.add_argument("--if_cuda", type=bool, default=True)
     opt = parser.parse_args()
+
+    if "phm" in opt.test_datapath:
+        opt.dataset = "phm"
+    else:
+        opt.dataset = "paderborn"
 
     return opt
 
@@ -55,7 +59,7 @@ class Hook():
         self.hook.remove()
         
 
-def readFeatures(model, layerName, inData):
+def readFeatures(model, layerName, inData, num_classes):
     
     hookF = []
     modules = model.named_children()
@@ -65,7 +69,7 @@ def readFeatures(model, layerName, inData):
             hookF.append(Hook(module))
     
     out = model(inData)
-    out.backward(torch.ones((1, 14), dtype=torch.float), retain_graph=True)       # TODO change here the # of classes
+    out.backward(torch.ones((1, num_classes), dtype=torch.float), retain_graph=True)
 
     featureMaps = {}    
     
@@ -114,23 +118,29 @@ if __name__ == "__main__":
     
 
     opt = getArgs()
-
-    model = LeNet_enhanced2(opt.data_dim, opt.num_classes)
-    model.load_state_dict(torch.load(opt.model_path))
     
+    # Prepare the dataset
+    if "phm" in opt.dataset:
+        dataset = ImageTSDataset_PHM(ImageDataFoloder=opt.data_folder, condition=opt.condition)
+    else:
+        dataset = ImageTSDataset_Paderborn(ImageDataFoloder=opt.data_folder)
+    transform = transforms.Compose([transforms.ToTensor()])
+    testDTLoader = DataLoader(dataset, batch_size=1, shuffle=True, drop_last=True)
+
+    if torch.cuda.is_available() and opt.if_cuda:
+        device = torch.device("cuda")
+    else:
+        device = torch.device('cpu')
+
+    num_classes = dataset.numClasses
+    model = LeNet_enhanced2(opt.data_dim, num_classes)
+    model.load_state_dict(torch.load(opt.model_path))
+
     """
     module names in LeNet: [conv1, pool1, conv2, pool2, linear1, linear2, outlayer, dropout]
     for name, module in model.named_children():
         print name
     """
-    
-    # Prepare the dataset
-    testDT = ImageTSDataset(opt.test_datapath)
-    testDTLoader = DataLoader(testDT, batch_size=1, shuffle=True, drop_last=True)
-    if torch.cuda.is_available() and opt.if_cuda:
-        device = torch.device("cuda")
-    else:
-        device = torch.device('cpu')
     model = model.to(device)
     
     '''
@@ -154,7 +164,7 @@ if __name__ == "__main__":
     for idx, (data, label) in enumerate(testDTLoader):
         print(idx, label)
         data = data.to(device, dtype=torch.float)
-        featureMaps = readFeatures(model, layersToSee, data)
+        featureMaps = readFeatures(model, layersToSee, data, num_classes)
         allFeatures["linear3"].append(featureMaps['linear3'])
         allFeatures["label"].append(label)
 

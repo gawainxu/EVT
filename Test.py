@@ -19,21 +19,28 @@ import argparse
 import os
 
 from CNNs import LeNet_enhanced2
-from Datasets import ImageTSDataset
+from Datasets import ImageTSDataset_PHM, ImageTSDataset_Paderborn
 
 
 def getParse():
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--dataFolder', type=str, default=None)
-    parser.add_argument('--oldmodelPath', type=str, default=None)
-    parser.add_argument('--modelPath', type=str, default=None)
+    parser.add_argument('--data_folder', type=str, default=None)
+    parser.add_argument('--oldmodel_path', type=str, default=None)
+    parser.add_argument('--model_path', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
     parser.add_argument("--if_cuda", type=bool, default=True)
     parser.add_argument('--condition', type=str, default="50Hz_High")
+    parser.add_argument('--save_path', type=str, default=None)
 
     opt = parser.parse_args()
+
+    if "phm" in opt.data_folder:
+        opt.dataset = "phm"
+    else:
+        opt.dataset = "paderborn"
+
     return opt
 
 
@@ -98,24 +105,28 @@ if __name__ == '__main__':
     opt = getParse()
 
     os.chdir(opt.dataFolder)
-    dataset = ImageTSDataset(ImageDataFoloder=opt.dataFolder, condition=opt.condition)
+    if "phm" in opt.dataset:
+        dataset = ImageTSDataset_PHM(ImageDataFoloder=opt.data_folder, condition=opt.condition)
+    else:
+        dataset = ImageTSDataset_Paderborn(ImageDataFoloder=opt.data_folder)
     transform = transforms.Compose([transforms.ToTensor()])
     testDTLoader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
 
-    numClasses = dataset.numClasses
+    num_classes = dataset.numClasses
 
     if torch.cuda.is_available() and opt.if_cuda:
         device = torch.device("cuda")
     else:
         device = torch.device('cpu')
 
-    model = LeNet_enhanced2(opt.in_dim, numClasses)
-    model.load_state_dict(torch.load(opt.modelPath))
+    model = LeNet_enhanced2(opt.in_dim, num_classes)
+    if opt.oldmodel_path is not None:
+        model.load_state_dict(torch.load(opt.oldmodel_path))
     outputs, labels = test(model, device, testDTLoader)
     
     # read the outputs
-    outputSorted = [[] for _ in range(numClasses + 1)]      # 1 for the outlier
-    predictSorted = [[] for _ in range(numClasses + 1)]
+    outputSorted = [[] for _ in range(num_classes + 1)]      # 1 for the outlier
+    predictSorted = [[] for _ in range(num_classes + 1)]
     
     for (outs, label) in zip(outputs, labels):
         print(label)
@@ -126,12 +137,12 @@ if __name__ == '__main__':
             outputSorted[label].append(outs)
             predictSorted[label].append(predict.item())
         else:
-            outputSorted[numClasses].append(outs)   #continue
-            predictSorted[numClasses].append(predict.item())
+            outputSorted[num_classes].append(outs)   #continue
+            predictSorted[num_classes].append(predict.item())
         #outputSorted[predict.item()].append((outs, label))
         
         
-    with open('/home/zhi/projects/EVT/FeatureMaps/class0_14_50hz_Low_outputs', "wb") as f1:
+    with open(opt.save_path, "wb") as f1:
         pickle.dump(outputSorted, f1)
         
 #    with open('/home/zhi/projects/EVT/FeatureMaps/class0_28_50hz_Low_3200_end_outputs', "wb") as f2:
