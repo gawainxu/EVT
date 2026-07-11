@@ -79,6 +79,8 @@ def PrecisionRecall(outputs, labels, num_classes):
     precisions = []
     classes = list(range(num_classes))
     classes.append(100)
+
+    outputs = np.array(outputs)
     
     for c in classes:
         if c == 100:
