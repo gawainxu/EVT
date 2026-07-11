@@ -27,7 +27,6 @@ def getParse():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--data_folder', type=str, default=None)
-    parser.add_argument('--oldmodel_path', type=str, default=None)
     parser.add_argument('--model_path', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
     parser.add_argument("--if_cuda", type=bool, default=True)
@@ -110,7 +109,7 @@ if __name__ == '__main__':
     else:
         dataset = ImageTSDataset_Paderborn(ImageDataFoloder=opt.data_folder)
     transform = transforms.Compose([transforms.ToTensor()])
-    testDTLoader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
+    test_loader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
 
     num_classes = dataset.numClasses
 
@@ -120,13 +119,12 @@ if __name__ == '__main__':
         device = torch.device('cpu')
 
     model = LeNet_enhanced2(opt.in_dim, num_classes)
-    if opt.oldmodel_path is not None:
-        model.load_state_dict(torch.load(opt.oldmodel_path))
-    outputs, labels = test(model, device, testDTLoader)
+    model.load_state_dict(torch.load(opt.model_path))
+    outputs, labels = test(model, device, test_loader)
     
     # read the outputs
-    outputSorted = [[] for _ in range(num_classes + 1)]      # 1 for the outlier
-    predictSorted = [[] for _ in range(num_classes + 1)]
+    output_sorted = [[] for _ in range(num_classes + 1)]      # 1 for the outlier
+    predict_sorted = [[] for _ in range(num_classes + 1)]
     
     for (outs, label) in zip(outputs, labels):
         print(label)
@@ -134,16 +132,16 @@ if __name__ == '__main__':
         predict = torch.argmax(predict, dim=1)
         print(predict.item())
         if label < 100:   #predict == label:
-            outputSorted[label].append(outs)
-            predictSorted[label].append(predict.item())
+            output_sorted[label].append(outs)
+            predict_sorted[label].append(predict.item())
         else:
-            outputSorted[num_classes].append(outs)   #continue
-            predictSorted[num_classes].append(predict.item())
+            output_sorted[num_classes].append(outs)   #continue
+            predict_sorted[num_classes].append(predict.item())
         #outputSorted[predict.item()].append((outs, label))
         
         
     with open(opt.save_path, "wb") as f1:
-        pickle.dump(outputSorted, f1)
+        pickle.dump(output_sorted, f1)
         
 #    with open('/home/zhi/projects/EVT/FeatureMaps/class0_28_50hz_Low_3200_end_outputs', "wb") as f2:
 #        pickle.dump(outputSorted, f2)
