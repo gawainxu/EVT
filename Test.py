@@ -94,6 +94,7 @@ def PrecisionRecall(preds, labels, num_classes):
             continue
         class_c_idx = [i for i, x in enumerate(labels) if x == c]
         print(len(class_c_idx))
+        print(np.where(preds[class_c_idx] == c))
         tp = len(np.where(preds[class_c_idx] == c))
         fp = len(np.where(preds == c)) - tp
         fn = len(class_c_idx) - tp
