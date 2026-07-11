@@ -16,15 +16,31 @@ from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
+import argparse
 
 import torch
 import torch.nn as nn
 from torchvision import transforms, utils
 from torch.utils.data import DataLoader, Dataset
 
-
 from CNNs import LeNet_enhanced2
 from Datasets import ImageTSDataset
+
+
+
+def getArgs():
+
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--model_path', type=str, default='/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_30hz_High.pt')
+    parser.add_argument("--num_classes", type=int, default=10)
+    parser.add_argument("--data_dim", type=int, default=64)
+    parser.add_argument("--test_datapath", type=str, default="")
+    parser.add_argument("--save_path", type=str, default="")
+    parser.add_argument("--if_cuda", type=bool, default=True)
+    opt = parser.parse_args()
+
+    return opt
 
 
 class Hook():
@@ -38,8 +54,7 @@ class Hook():
     def remove(self):    
         self.hook.remove()
         
-        
-    
+
 def readFeatures(model, layerName, inData):
     
     hookF = []
@@ -58,8 +73,7 @@ def readFeatures(model, layerName, inData):
         featureMaps[layerName[idx]] = h.output.detach().numpy()
     
     return featureMaps
-    
-    
+
 
 def tSNEVisualize(inMat, nComponents):
     """
@@ -98,13 +112,11 @@ class toyNet(nn.Module):
     
 if __name__ == "__main__":
     
-    
-    N = 64
-    numClasses = 14
-    
-    modelPath = '/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_30hz_High.pt'
-    model = LeNet_enhanced2(N, numClasses)
-    model.load_state_dict(torch.load(modelPath))
+
+    opt = getArgs()
+
+    model = LeNet_enhanced2(opt.data_dim, opt.num_classes)
+    model.load_state_dict(torch.load(opt.model_path))
     
     """
     module names in LeNet: [conv1, pool1, conv2, pool2, linear1, linear2, outlayer, dropout]
@@ -113,16 +125,17 @@ if __name__ == "__main__":
     """
     
     # Prepare the dataset
-    testDataFolder = '/home/zhi/projects/faultDiagnosis/phm/class0_28_30hz_High_3200_end/'
-    testDT = ImageTSDataset(testDataFolder)
+    testDT = ImageTSDataset(opt.test_datapath)
     testDTLoader = DataLoader(testDT, batch_size=1, shuffle=True, drop_last=True)
-    device = 'cpu'
+    if torch.cuda.is_available() and opt.if_cuda:
+        device = torch.device("cuda")
+    else:
+        device = torch.device('cpu')
     model = model.to(device)
     
     '''
     layersToSee = ["conv1", "conv2", "conv3", "linear1", "linear2"]
     allFeatures = {"conv1": [], "conv2": [], "conv3":[], "linear1": [], "linear2": [], "label": []}
-    
     
     for idx, (data, label) in enumerate(testDTLoader):
         data = data.to(device, dtype=torch.float)
@@ -134,6 +147,7 @@ if __name__ == "__main__":
         allFeatures["linear2"].append(featureMaps["linear2"])
         allFeatures["label"].append(label)
     '''
+
     layersToSee = ["output"]
     allFeatures = {"output": [], "label": []}
     
@@ -143,17 +157,7 @@ if __name__ == "__main__":
         featureMaps = readFeatures(model, layersToSee, data)
         allFeatures["linear3"].append(featureMaps['linear3'])
         allFeatures["label"].append(label)
-        
-#        if idx == 10000:
-#            break
-    
-    with open('/home/zhi/projects/faultDiagnosis/phm/FeatureMaps/class0_28_30hz_High_linear3', "wb") as ff:
+
+    with open(opt.save_path, "wb") as ff:
         pickle.dump(allFeatures, ff)
-        
-    """
-    net = toyNet()
-    x = torch.Tensor([[1., 1., 1.]]).requires_grad_()
-    readFeatures(net, ["fc1", "fc2"], x)
-    """
-    
     

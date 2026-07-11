@@ -8,3 +8,10 @@ python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_35Hz_High" -
 python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_35Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_35Hz_Low.pth" --condition "35hz_Low" --batch_size 256
 python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_30Hz_High" --modelPath "/home/users/j/jiawen/EVT/save/classifer_30Hz_High.pth" --condition "30hz_High" --batch_size 256
 python main.py --dataFolder "/home/users/j/jiawen/EVT/phm/class0_14_30Hz_Low" --modelPath "/home/users/j/jiawen/EVT/save/classifer_30Hz_Low.pth" --condition "30hz_Low" --batch_size 256
+
+
+
+python main.py --data_folder "/home/users/j/jiawen/datasets/paderborn/class13_0_12_1" --model_path "/home/users/j/jiawen/EVT/save/class13_0_12_1.pth" --epochs 200
+python main.py --data_folder "/home/users/j/jiawen/datasets/paderborn/class13_0_12_2" --model_path "/home/users/j/jiawen/EVT/save/class13_0_12_2.pth" --epochs 200
+python main.py --data_folder "/home/users/j/jiawen/datasets/paderborn/class13_0_12_3" --model_path "/home/users/j/jiawen/EVT/save/class13_0_12_3.pth" --epochs 200
+python main.py --data_folder "/home/users/j/jiawen/datasets/paderborn/class13_0_12_4" --model_path "/home/users/j/jiawen/EVT/save/class13_0_12_4.pth" --epochs 200
