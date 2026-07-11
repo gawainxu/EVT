@@ -62,7 +62,7 @@ def test(model, device, dataLoader):
         labels.append(label.cpu().item())
         #lossTest.append(loss.cpu().detach().numpy())
         
-    return outputs, labels
+    return outputs, preds, labels
 
 
 def compareLabels(estLabels, trueLabels):
@@ -76,14 +76,14 @@ def compareLabels(estLabels, trueLabels):
     return unEquals
 
 
-def PrecisionRecall(outputs, labels, num_classes):
+def PrecisionRecall(preds, labels, num_classes):
             
     recalls = []
     precisions = []
     classes = list(range(num_classes))
     classes.append(100)
 
-    outputs = np.array(outputs)
+    preds = np.array(preds)
     
     for c in classes:
         if c == 100:
@@ -91,8 +91,8 @@ def PrecisionRecall(outputs, labels, num_classes):
             precisions.append(0)
             continue
         class_c_idx = [i for i, x in enumerate(labels) if x == c]
-        tp = len(np.where(outputs[class_c_idx] == c))
-        fp = len(np.where(outputs == c)) - tp
+        tp = len(np.where(preds[class_c_idx] == c))
+        fp = len(np.where(preds == c)) - tp
         fn = len(class_c_idx) - tp
         print("tp", tp, "fp", fp, "fn", fn)
         recalls.append(tp*1.0 / (tp + fn))
@@ -126,8 +126,8 @@ if __name__ == '__main__':
 
     model = LeNet_enhanced2(opt.in_dim, num_classes)
     model.load_state_dict(torch.load(opt.model_path))
-    outputs, labels = test(model, device, test_loader)
-    precision, recall = PrecisionRecall(outputs, labels, num_classes)
+    outputs, preds, labels = test(model, device, test_loader)
+    precision, recall = PrecisionRecall(preds, labels, num_classes)
     print("Precision:", precision, "Recall:", recall)
     
     # read the outputs
