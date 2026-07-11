@@ -57,7 +57,7 @@ def test(model, device, dataLoader):
         output = model(img)
         pred = torch.argmax(output, dim=1)
         
-        outputs.append(output.cpu().detach().item())
+        outputs.append(output.cpu().detach().numpy())
         preds.append(pred.cpu().detach().item())
         labels.append(label.cpu().item())
         #lossTest.append(loss.cpu().detach().numpy())
