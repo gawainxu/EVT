@@ -77,7 +77,7 @@ def PrecisionRecall(outputs, labels, num_classes):
             
     recalls = []
     precisions = []
-    classes = range(num_classes+1)
+    classes = list(range(num_classes))
     classes.append(100)
     
     for c in classes:
