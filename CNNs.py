@@ -10,17 +10,6 @@ Created on Wed Sep 30 00:31:17 2020
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.optim as optim
-import torchvision
-from torch.utils.data import Dataset, DataLoader
-from torchvision import transforms, utils
-
-import os
-import pickle
-import numpy as np
-import matplotlib.pyplot as plt
-
-from Datasets import ImageTSDataset
 
 
 '''
@@ -95,40 +84,3 @@ def train(model, device, dataLoader, optimizer):
         
         lossEpoch += loss.cpu()
     return lossEpoch / batchIdx
-    
-
-
-if __name__ == '__main__':
-    
-    N = 64
-    numClasses = 14
-    batchSize = 32
-    lr = 0.01
-    epochs = 100
-    
-    dataMean = -0.0153
-    dataStd = 0.291
-    
-    # Prepare the dataset
-    imageDataFoloder = '/home/zhi/projects/faultDiagnosis/phm/class0_14_30hz_high'
-    imageDT = ImageTSDataset(imageDataFoloder)
-    
-    transform = transforms.Compose([transforms.ToTensor()])      
-    imageDTLoader = DataLoader(imageDT, batch_size = batchSize, shuffle=True, num_workers = 4, drop_last=True)
-    
-    # Prepare the network
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = LeNet_enhanced2(N, numClasses)
-    optimizer = optim.Adadelta(model.parameters(), lr = lr)
-    model.load_state_dict(torch.load('/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_30hz_high.pt'))
-
-    # Start the training
-    
-    lossMin = 20
-    for e in range(epochs):
-        lossEpoch = train(model, device, imageDTLoader, optimizer)
-      #  Loss.append(lossEpoch)
-        print('Epoch: ', e, 'Loss: ', lossEpoch)
-        if lossEpoch < lossMin:
-            torch.save(model.state_dict(), '/home/zhi/projects/faultDiagnosis/phm/LossFiles/LeNet_enhanced2_class0_14_30hz_high.pt')
-            lossMin = lossEpoch
