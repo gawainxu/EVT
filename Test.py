@@ -87,11 +87,11 @@ def PrecisionRecall(outputs, labels, num_classes):
             recalls.append(0)
             precisions.append(0)
             continue
-        sampleIdx = [i for i, x in enumerate(labels) if x == c]
-        print(type(sampleIdx), sampleIdx)
-        tp = len(np.where(outputs[sampleIdx] == c))
+        class_c_idx = [i for i, x in enumerate(labels) if x == c]
+        tp = len(np.where(outputs[class_c_idx] == c))
         fp = len(np.where(outputs == c)) - tp
-        fn = len(sampleIdx) - tp
+        fn = len(class_c_idx) - tp
+        print("tp", tp, "fp", fp, "fn", fn)
         recalls.append(tp*1.0 / (tp + fn))
         precisions.append(tp*1.0 / (tp+fp))
         
