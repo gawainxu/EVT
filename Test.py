@@ -103,7 +103,7 @@ if __name__ == '__main__':
 
     opt = getParse()
 
-    os.chdir(opt.dataFolder)
+    #os.chdir(opt.dataFolder)
     if "phm" in opt.dataset:
         dataset = ImageTSDataset_PHM(ImageDataFoloder=opt.data_folder, condition=opt.condition)
     else:
