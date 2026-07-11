@@ -38,7 +38,7 @@ if __name__ == '__main__':
     
     opt = getArgs()
     
-    os.chdir(opt.dataFolder)
+    os.chdir(opt.data_folder)
     if "phm" in opt.dataset:
         dataset = ImageTSDataset_PHM(ImageDataFoloder=opt.data_folder, condition=opt.condition)
     else:
