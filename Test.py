@@ -121,16 +121,18 @@ if __name__ == '__main__':
     model = LeNet_enhanced2(opt.in_dim, num_classes)
     model.load_state_dict(torch.load(opt.model_path))
     outputs, labels = test(model, device, test_loader)
+    precision, recall = PrecisionRecall(outputs, labels, num_classes)
+    print("Precision:", precision, "Recall:", recall)
     
     # read the outputs
     output_sorted = [[] for _ in range(num_classes + 1)]      # 1 for the outlier
     predict_sorted = [[] for _ in range(num_classes + 1)]
     
     for (outs, label) in zip(outputs, labels):
-        print(label)
+        #print(label)
         predict = F.log_softmax(torch.tensor(outs))
         predict = torch.argmax(predict, dim=1)
-        print(predict.item())
+        #print(predict.item())
         if label < 100:   #predict == label:
             output_sorted[label].append(outs)
             predict_sorted[label].append(predict.item())
