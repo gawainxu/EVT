@@ -85,8 +85,7 @@ def PrecisionRecall(outputs, labels, num_classes):
             recalls.append(0)
             precisions.append(0)
             continue
-        sampleIdx = np.where(labels == c)
-        print(labels, c)
+        sampleIdx = [i for i, x in enumerate(labels) if x == c]
         print(type(sampleIdx), sampleIdx)
         tp = np.sum(outputs[sampleIdx] == c)
         fp = np.sum(outputs == c) - tp
