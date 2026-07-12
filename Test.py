@@ -90,6 +90,7 @@ def PrecisionRecall(preds, labels, num_classes):
     preds = np.array(preds)
     #print(len(preds))
     #print(len(labels))
+    print(preds.shape)
     
     for c in classes:
         if c == 100:
@@ -109,7 +110,7 @@ def PrecisionRecall(preds, labels, num_classes):
     recall = np.mean(np.array(recalls))
 
     correct = np.where(preds == labels)[0]
-    print("labels", len(labels), len(correct), correct)
+    print("labels", len(labels), len(correct))
     accuracy = len(correct)/len(labels)
         
     return precision, recall, accuracy
