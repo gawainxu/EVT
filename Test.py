@@ -113,8 +113,7 @@ def PrecisionRecall(preds, labels, num_classes):
     for i, j in zip(preds, labels):
         if i == j:
             correct += 1
-    print("labels", len(labels), len(correct))
-    accuracy = len(correct)/len(labels)
+    accuracy = correct / (labels)
         
     return precision, recall, accuracy
 
