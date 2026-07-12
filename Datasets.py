@@ -51,8 +51,8 @@ class ImageTSDataset_PHM(Dataset):
 
         if label in self.labelDict.keys():
             label = self.labelDict[label]
-        else:
-            label = 100
+        #else:
+        #    label = 100
 
         print(label)
         return img, label
