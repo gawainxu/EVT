@@ -27,4 +27,4 @@ python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_45Hz_Low" -
 #python Test.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_30Hz_Low_test" --model_path "/home/users/j/jiawen/EVT/save/classifer_30Hz_Low.pth" --save_path "/home/users/j/jiawen/EVT/FeatureMaps/class0_14_30Hz_Low_pred" --condition "30hz_Low"
 
 
-#python Test.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth" --save_path "/home/users/j/jiawen/EVT/FeatureMaps/class0_14_50Hz_High_pred" --condition "50hz_High"
+#python Test.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_Low" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_Low.pth" --save_path "/home/users/j/jiawen/EVT/FeatureMaps/class0_14_50Hz_Low_pred" --condition "50hz_Low"

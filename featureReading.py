@@ -62,11 +62,13 @@ class Hook():
 def readFeatures(model, layerName, inData, num_classes):
     
     hookF = []
+    names = []
     modules = model.named_children()
     
     for name, module in modules:
         if name in layerName:
             hookF.append(Hook(module))
+            names.append(name)
     
     out = model(inData)
     out.backward(torch.ones((1, num_classes), dtype=torch.float), retain_graph=True)
@@ -74,7 +76,7 @@ def readFeatures(model, layerName, inData, num_classes):
     featureMaps = {}    
     
     for idx, h in enumerate(hookF):
-        featureMaps[layerName[idx]] = h.output.detach().numpy()
+        featureMaps[names[idx]] = h.output.detach().numpy()
     
     return featureMaps
 
@@ -158,16 +160,17 @@ if __name__ == "__main__":
         allFeatures["label"].append(label)
     '''
 
-    layersToSee = ["output"]
-    allFeatures = {"output": [], "label": []}
+    layers_to_see = ["linear3", "output"]
+    all_features = {"linear3": [], "output": [], "label": []}
     
     for idx, (data, label) in enumerate(testDTLoader):
         print(idx, label)
         data = data.to(device, dtype=torch.float)
-        featureMaps = readFeatures(model, layersToSee, data, num_classes)
-        allFeatures["linear3"].append(featureMaps['linear3'])
-        allFeatures["label"].append(label)
+        featureMaps = readFeatures(model, layers_to_see, data, num_classes)
+        all_features["linear3"].append(featureMaps['linear3'])
+        all_features["output"].append(featureMaps['output'])
+        all_features["label"].append(label)
 
     with open(opt.save_path, "wb") as ff:
-        pickle.dump(allFeatures, ff)
+        pickle.dump(all_features, ff)
     
