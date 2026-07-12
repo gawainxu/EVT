@@ -59,11 +59,10 @@ def test(model, device, dataLoader):
         
         outputs.append(output.cpu().detach().numpy())
         pred = pred.cpu().detach().numpy()
-        print(pred.shape)
         label = label.cpu().item()
         preds.append(pred)
         labels.append(label)
-        if pred == labels:
+        if pred == label:
             correct += 1
     print("Acc is", correct / len(dataLoader))
         
