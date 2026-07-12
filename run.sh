@@ -1,7 +1,7 @@
-python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth" --condition "50hz_High" --batch_size 256 --lr 0.5 --epochs 100
-python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_Low" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_Low.pth" --condition "50hz_Low" --batch_size 256 --lr 0.5 --epochs 100
-python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_45Hz_High" --model_path "/home/users/j/jiawen/EVT/save/classifer_45Hz_High.pth" --condition "45hz_High" --batch_size 256 --lr 0.5 --epochs 100
-python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_45Hz_Low" --model_path "/home/users/j/jiawen/EVT/save/classifer_45Hz_Low.pth" --condition "45hz_Low" --batch_size 256 --lr 0.5 --epochs 100
+#python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_High.pth" --condition "50hz_High" --batch_size 256 --lr 0.5 --epochs 100
+#python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_Low" --model_path "/home/users/j/jiawen/EVT/save/classifer_50Hz_Low.pth" --condition "50hz_Low" --batch_size 256 --lr 0.5 --epochs 100
+#python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_45Hz_High" --model_path "/home/users/j/jiawen/EVT/save/classifer_45Hz_High.pth" --condition "45hz_High" --batch_size 256 --lr 0.5 --epochs 100
+#python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_45Hz_Low" --model_path "/home/users/j/jiawen/EVT/save/classifer_45Hz_Low.pth" --condition "45hz_Low" --batch_size 256 --lr 0.5 --epochs 100
 #python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_40Hz_High" --model_path "/home/users/j/jiawen/EVT/save/classifer_40Hz_High.pth" --condition "40hz_High" --batch_size 256 --lr 0.5 --epochs 100
 #python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_40Hz_Low" --model_path "/home/users/j/jiawen/EVT/save/classifer_40Hz_Low.pth" --condition "40hz_Low" --batch_size 256 --lr 0.5 --epochs 100
 #python main.py --data_folder "/home/users/j/jiawen/EVT/phm/class0_14_35Hz_High" --model_path "/home/users/j/jiawen/EVT/save/classifer_35Hz_High.pth" --condition "35hz_High" --batch_size 256 --lr 0.5 --epochs 100
