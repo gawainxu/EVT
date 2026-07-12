@@ -119,6 +119,9 @@ class ImageTSDataset_Paderborn(Dataset):
 
 if __name__ == '__main__':
     
-    ImageDataFoloder = 'D:\projects\EVT\class0_14_30hz_High'
-    DT = ImageTSDataset_PHM(ImageDataFoloder)
-    print(len(DT))
+    ImageDataFoloder = "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High_test"
+    dataset = ImageTSDataset_PHM(ImageDataFoloder)
+    transform = transforms.Compose([transforms.ToTensor()])
+    test_loader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
+    for idx, (img, label) in enumerate(test_loader):
+        print(label)
