@@ -47,7 +47,8 @@ class ImageTSDataset_PHM(Dataset):
         img = np.expand_dims(img, axis=0)
     
         dataIden = dataName.split('.')[0]
-        label = dataIden.split('__')[0]      
+        label = dataIden.split('__')[0]
+        print(label)
 
         if label in self.labelDict.keys():
             label = self.labelDict[label]
@@ -124,4 +125,4 @@ if __name__ == '__main__':
     transform = transforms.Compose([transforms.ToTensor()])
     test_loader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
     for idx, (img, label) in enumerate(test_loader):
-        print(label)
+        print(idx)
