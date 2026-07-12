@@ -133,7 +133,8 @@ class ImageTSDataset_Paderborn(Dataset):
 if __name__ == '__main__':
     
     ImageDataFoloder = "/home/users/j/jiawen/EVT/phm/class0_14_50Hz_High"
-    dataset = ImageTSDataset_PHM(ImageDataFoloder)
+    condition = "50hz_High"
+    dataset = ImageTSDataset_PHM(ImageDataFoloder, condition=condition)
     transform = transforms.Compose([transforms.ToTensor()])
     test_loader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
     #for idx, (img, label) in enumerate(test_loader):
