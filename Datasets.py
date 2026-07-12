@@ -30,6 +30,7 @@ class ImageTSDataset_PHM(Dataset):
         
         self.transform = transform
         #50hz_High
+        """
         self.labelDict = {"helical 1_" + condition + "_1": 0, "helical 1_" + condition + "_2": 0,
                           "helical 2_" + condition + "_1": 1, "helical 2_" + condition + "_2": 1,
                           "helical 3_" + condition + "_1": 2, "helical 3_" + condition + "_2": 2,
@@ -37,6 +38,14 @@ class ImageTSDataset_PHM(Dataset):
                           "helical 5_" + condition + "_1": 4, "helical 5_" + condition + "_2": 4,
                           "helical 6_" + condition + "_1": 5, "helical 6_" + condition + "_2": 5,
                           "spur 1_" + condition + "_1": 6, "spur 1_" + condition + "_2": 6}
+        """
+        self.labelDict = {"helical 1_50hz_High_1": 0, "helical 1_50hz_High_2": 0,
+                          "helical 2_50hz_High_1": 1, "helical 2_50hz_High_2": 1,
+                          "helical 3_50hz_High_1": 2, "helical 3_50hz_High_2": 2,
+                          "helical 4_50hz_High_1": 3, "helical 4_50hz_High_2": 3,
+                          "helical 5_50hz_High_1": 4, "helical 5_50hz_High_2": 4,
+                          "helical 6_50hz_High_1": 5, "helical 6_50hz_High_2": 5,
+                          "spur 1_50hz_High_1": 6, "spur 1_50hz_High_2": 6}
         
         self.numClasses = int(len(self.labelDict) / 2)
         
