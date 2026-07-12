@@ -49,6 +49,8 @@ class ImageTSDataset_PHM(Dataset):
         """
         
         self.numClasses = int(len(self.labelDict) / 2)
+
+        print(self.labelDict.keys())
         
     def __getitem__(self, idx):
         
@@ -134,5 +136,5 @@ if __name__ == '__main__':
     dataset = ImageTSDataset_PHM(ImageDataFoloder)
     transform = transforms.Compose([transforms.ToTensor()])
     test_loader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=4, drop_last=True)
-    for idx, (img, label) in enumerate(test_loader):
-        print(idx)
+    #for idx, (img, label) in enumerate(test_loader):
+    #    print(idx)
