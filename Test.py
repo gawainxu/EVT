@@ -30,7 +30,7 @@ def getParse():
     parser.add_argument('--model_path', type=str, default=None)
     parser.add_argument('--in_dim', type=int, default=64)
     parser.add_argument("--if_cuda", type=bool, default=True)
-    parser.add_argument('--condition', type=str, default="50Hz_High")
+    parser.add_argument('--condition', type=str, default="50hz_High")
     parser.add_argument('--save_path', type=str, default=None)
 
     opt = parser.parse_args()
@@ -103,8 +103,11 @@ def PrecisionRecall(preds, labels, num_classes):
         
     precision = np.mean(np.array(precisions))
     recall = np.mean(np.array(recalls))
+
+    correct = np.where(preds == labels)[0]
+    accuracy = len(correct)/len(labels)
         
-    return precision, recall
+    return precision, recall, accuracy
 
 
 if __name__ == '__main__':
@@ -130,8 +133,8 @@ if __name__ == '__main__':
     model = LeNet_enhanced2(opt.in_dim, num_classes)
     model.load_state_dict(torch.load(opt.model_path))
     outputs, preds, labels = test(model, device, test_loader)
-    precision, recall = PrecisionRecall(preds, labels, num_classes)
-    print("Precision:", precision, "Recall:", recall)
+    precision, recall, accuracy = PrecisionRecall(preds, labels, num_classes)
+    print("Precision:", precision, "Recall:", recall, "accuracy", accuracy)
     
     # read the outputs
     output_sorted = [[] for _ in range(num_classes + 1)]      # 1 for the outlier
