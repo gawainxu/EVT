@@ -84,8 +84,8 @@ def PrecisionRecall(preds, labels, num_classes):
     classes.append(100)
 
     preds = np.array(preds)
-    print(len(preds))
-    print(len(labels))
+    #print(len(preds))
+    #print(len(labels))
     
     for c in classes:
         if c == 100:
