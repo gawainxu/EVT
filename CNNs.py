@@ -70,6 +70,7 @@ def train(model, device, dataLoader, optimizer):
     model.train()
     model = model.to(device)
     lossEpoch = 0
+    acc = 0
     
     for batchIdx, (img, label) in enumerate(dataLoader):
         #img, label = torch.from_numpy(img), torch.from_numpy(label)
@@ -79,11 +80,12 @@ def train(model, device, dataLoader, optimizer):
         output = model(img)
         #output = F.log_softmax(output)
         pred = torch.argmax(output, dim=1)
-        acc = torch.eq(pred, label).float().mean()
-        print("epoch acc", acc)
+        acc += torch.eq(pred, label).float().mean()
         loss = F.cross_entropy(output, label)
         loss.backward()
         optimizer.step()
         
         lossEpoch += loss.cpu()
+
+    print("epoch acc", acc / len(dataLoader))
     return lossEpoch / batchIdx
