@@ -49,18 +49,22 @@ def test(model, device, dataLoader):
     outputs = []
     labels = []
     preds = []
+    correct = 0
     
     for idx, (img, label) in enumerate(dataLoader):
         #print idx
         img = img.to(device, dtype=torch.float)
-        label = label.to(device, dtype=torch.long)
         output = model(img)
         pred = torch.argmax(output, dim=1)
         
         outputs.append(output.cpu().detach().numpy())
-        preds.append(pred.cpu().detach().item())
-        labels.append(label.cpu().item())
-        #lossTest.append(loss.cpu().detach().numpy())
+        pred = pred.cpu().detach().numpy()
+        label = label.cpu().item()
+        preds.append(pred)
+        labels.append(label)
+        if pred == labels:
+            correct += 1
+    print("Acc is", correct / len(dataLoader))
         
     return outputs, preds, labels
 
