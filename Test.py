@@ -59,6 +59,7 @@ def test(model, device, dataLoader):
         
         outputs.append(output.cpu().detach().numpy())
         pred = pred.cpu().detach().numpy()
+        print(pred.shape)
         label = label.cpu().item()
         preds.append(pred)
         labels.append(label)
