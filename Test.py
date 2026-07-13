@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pickle
 import argparse
-import os
+from sklearn.metrics import roc_curve, auc
 
 from CNNs import LeNet_enhanced2
 from Datasets import ImageTSDataset_PHM, ImageTSDataset_Paderborn
@@ -116,6 +116,18 @@ def PrecisionRecall(preds, labels, num_classes):
     accuracy = correct / len(labels)
         
     return precision, recall, accuracy
+
+
+def AUROC(labels, probs):
+    '''
+    ROC:
+        X: False positive rate
+        Y: True positive rate
+    '''
+    fpr, tpr, threholds = roc_curve(labels, probs)
+    auroc = auc(fpr, tpr)
+
+    return auroc
 
 
 if __name__ == '__main__':
